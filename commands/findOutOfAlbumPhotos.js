@@ -1,14 +1,18 @@
 import apiGooglePhotos from '../helpers/google-photos.js';
 
 const _mediaItems = {};
-
+// Foto is not in Album
 function storeMediaItems(mediaItems) {
 	if (!mediaItems) return;
+    //var str = JSON.stringify(mediaItems, null, 4); // (Optional) beautiful indented output.
+    //console.log(str);
 
 	for (const mi of mediaItems) {
+        
 		_mediaItems[mi.id] = mi.productUrl;
 	}
 }
+// Photo is in Album
 function forgetMediaItems(mediaItems) {
 	if (!mediaItems) return;
 
@@ -76,6 +80,12 @@ async function runAsync(checkSharedAlbums) {
 			  tableId = 'tableFindOutOfAlbumPhotos';
 
 		for (const id in _mediaItems) {
+			// DEbug Object
+			// REF: https://developers.google.com/photos/library/reference/rest/v1/mediaItems
+			// description
+			//var str = JSON.stringify(_mediaItems, null, 4); // (Optional) beautiful indented output.
+            //console.log(str);
+			// end debug
 			const url = _mediaItems[id],
 				  tr = document.createElement('tr');
 
